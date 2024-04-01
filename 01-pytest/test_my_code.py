@@ -1,6 +1,7 @@
 import csv
 import pytest
 import tempfile
+import requests
 
 from my_code import FirstClass, SecondClass, ThirdClass
 
@@ -52,6 +53,16 @@ class TestExamplePatchingMocking:
         mocker.patch("my_code.SecondClass._get_request", return_value={"three": 3})
         res = second_class.add_to_remote_number(5, "three")
         assert res == 8
+
+    def test_get_request_mocker_with_mock(self, mocker):
+        mock_get = mocker.patch("requests.get", return_value=mocker.Mock())
+        mock_get.return_value.json.return_value = {"a": 1}
+        mock_get.return_value.status_code = 200
+
+        second_class = SecondClass("https://url.com/fake")
+        res = second_class._get_request("fake")
+
+        assert res == {"a": 1}
 
     def test_get_request_mocker(self, mocker):
         second_class = SecondClass("https://url.com/fake")

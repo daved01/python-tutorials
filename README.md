@@ -2,4 +2,4 @@
 
 # 01 Pytest
 
-Post: <https://www.neuralception.com/pyenvvirtualenv/python-better-unittest-pytest/>
+Post: <https://deconvoluteai.com/blog/neuralception/python-better-unittest-pytest>
